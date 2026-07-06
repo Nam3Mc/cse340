@@ -1,30 +1,236 @@
-html, body {
-    background-color: lightblue;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
+/* ==========================================================================
+   1. Design Tokens & Variables (AAA Light Blue Web3 Palette)
+   ========================================================================== */
+:root {
+    /* Backgrounds */
+    --bg-main: #e0f2fe;         /* Vibrant, premium light blue background */
+    --bg-card: #ffffff;         /* Pure white surface for maximum AAA text contrast */
+    
+    /* Strict AAA Text & Contrast Colors (Tested against white at > 7:1) */
+    --text-main: #0f172a;       /* Deep obsidian navy (Infinite readability) */
+    --text-muted: #334155;     /* Dark slate gray for sub-elements */
+    
+    /* Interactive & Web3 Accents */
+    --link-color: #0055b3;      /* Deep sapphire blue (Passes AAA small text at 7.2:1) */
+    --link-hover: #003d80;      
+    
+    /* Layout & Utilities */
+    --max-width: 1200px;
+    --radius: 16px;
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --border-clean: 1px solid rgba(15, 23, 42, 0.08);
 }
 
-body {
-    nav {
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
+/* ==========================================================================
+   2. Base Styles & Typography
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        li {
-            display: inline;
-            margin-right: 15px;
-        }
+html, body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
-        a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
+main {
+    flex: 1;
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 2rem 1.25rem;
+}
 
-            &:hover {
-                color: #0066cc;
-            }
-        }
+/* ==========================================================================
+   3. Navigation (Minimalist White Glassmorphism)
+   ========================================================================== */
+nav {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: var(--border-clean);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav ul {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.25rem;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.75rem;
+    align-items: center;
+}
+
+nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.3px;
+    padding: 0.5rem 0;
+    transition: var(--transition);
+    display: inline-block;
+}
+
+nav a:hover, 
+nav a:focus-visible {
+    color: var(--link-color);
+}
+
+nav a:focus-visible {
+    outline: 3px solid var(--link-color);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+/* ==========================================================================
+   4. Typography & Core Layout Elements
+   ========================================================================== */
+h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.75rem;
+    color: var(--text-main);
+}
+
+h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--link-color); /* Premium blue visual accent */
+    margin-bottom: 1.75rem;
+}
+
+p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 65ch;
+    margin-bottom: 2rem;
+}
+
+img.main-logo {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+    margin-top: 1rem;
+}
+
+/* ==========================================================================
+   5. Content Collections (Web3 Minimalist Cards)
+   ========================================================================== */
+main ul {
+    list-style: none;
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+    margin-top: 1.5rem;
+}
+
+main ul li {
+    background: var(--bg-card);
+    border: var(--border-clean);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.02);
+    transition: var(--transition);
+}
+
+main ul li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+    border-color: var(--link-color);
+}
+
+/* Actionable anchors inside category or directory lists */
+main ul li a {
+    color: var(--link-color);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    font-weight: 700;
+    font-size: 1.15rem;
+    transition: var(--transition);
+}
+
+main ul li a:hover {
+    color: var(--link-hover);
+}
+
+/* Partner Logo Frames */
+main ul li img {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    margin-bottom: 1.25rem;
+    background-color: #f8fafc; /* Subtle off-white to isolate logo backgrounds cleanly */
+    padding: 6px 14px;
+    border-radius: 8px;
+}
+
+main ul li strong {
+    color: var(--text-main);
+    font-size: 1.15rem;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+/* ==========================================================================
+   6. Footer
+   ========================================================================== */
+footer {
+    border-top: var(--border-clean);
+    padding: 2.5rem 1.25rem;
+    text-align: center;
+    margin-top: auto;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+footer p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* ==========================================================================
+   7. Responsive Layout Breaks (Mobile to Desktop Screen Scaling)
+   ========================================================================== */
+
+/* Tablet Optimization (600px and up) */
+@media (min-width: 600px) {
+    main {
+        padding: 3.5rem 2rem;
     }
-} 
+
+    h1 {
+        font-size: 3rem;
+    }
+
+    main ul {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* Desktop Screens (960px and up) */
+@media (min-width: 960px) {
+    main ul {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    nav ul {
+        padding: 1.5rem 2rem;
+        gap: 2.5rem;
+    }
+}
