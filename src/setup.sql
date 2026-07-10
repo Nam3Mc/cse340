@@ -1,7 +1,7 @@
 -- CREATE ORGANIZATIONS TABLE --
 CREATE TABLE organizations (
     organization_id SERIAL PRIMARY KEY,
-    name VARCHAR(150) NOT NULL, -- Increased slightly to fit longer names safely
+    name VARCHAR(150) NOT NULL, 
     description TEXT NOT NULL,
     contact_email VARCHAR(255) NOT NULL,
     logo_filename VARCHAR(255) NOT NULL
@@ -34,8 +34,8 @@ CREATE TABLE service_project (
     project_id SERIAL PRIMARY KEY,
     organization_id INT NOT NULL,
     title VARCHAR(150) NOT NULL,
-    description TEXT NOT NULL,       -- Changed to TEXT to match longer project descriptions safely
-    location VARCHAR(255) NOT NULL,  -- FIXED: Changed from DATE to VARCHAR to accept addresses
+    description TEXT NOT NULL,     
+    location VARCHAR(255) NOT NULL,
     project_date DATE NOT NULL,
     FOREIGN KEY (organization_id) REFERENCES organizations(organization_id) -- FIXED: Spelling of FOREIGN
 );

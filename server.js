@@ -32,7 +32,6 @@ app.get('/projects', async (req, res) => {
     const projects = await getAllServicProjects()
     const title = 'PROJECTS'
 
-    console.log(projects)
     res.render('projects', {title, projects})
 });
 
