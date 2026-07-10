@@ -1,0 +1,142 @@
+========================================================================
+WEEK 01 COACHING SESSION TRANSCRIPT - DREISER JOSE MORALES CHACON
+========================================================================
+
+------------------------------------------------------------------------
+ROUND 1
+------------------------------------------------------------------------
+
+COACH: Welcome! Just to be clear from the start, this is a coaching session, not a test. It is perfectly okay—and even encouraged—to say 'I don't know' or 'I made a mistake.' That's the fastest way we'll learn today. Before we dive into the code, let's make sure I have your name right—how should I address you today?
+
+DREISER: Hi Dreiser Jose Morales Chacon, Call me dreiser
+
+COACH: [Introduced Topic 1: Express Routing] Could you paste the snippet from your server.js file where you handle your routing, and briefly tell me what that section of code does?
+
+DREISER: 
+app.get('/', (req, res) => {
+    const title = 'HOME'
+    res.render('home', {title})
+});
+
+app.get('/organizations', (req, res) => {
+    const title = 'ORGANIZATION'
+    res.render('organizations', {title})
+});
+
+app.get('/projects', (req, res) => {
+    const title = 'PROJECTS'
+    res.render('projects', {title})
+});
+
+app.get('/categories', (req, res) => {
+    const title = 'CATEGORIES'
+    res.render('categories', {title})
+})
+
+Sure, above is the routing code, and what this code does is using the app from express taht receive Http requests in this case, all of them with the Get Method. these app.get reveive 2 parameters, the relative path usetd in the browser to render the html and the arrow fucntion wich get, req, res, inside the function we call a variable call title, and its value is an string that will be past as a parameter in the res.render that means the answer given by my server, it also recive 2 parameters the name of the ejs to render following by the variable declared as title, inside the ejs it will be readed and rendered
+
+COACH: [Validated & Introduced Topic 2: JavaScript Language Principles] Could you share a JavaScript function snippet from your project—either from your backend or frontend scripts—where you applied a specific JS principle (like array methods, async/await, or scope), and tell me why you chose that approach?
+
+DREISER: 
+we have here the footer 
+<footer>
+    <p>&copy; <%= new Date().getFullYear() %> CSE 340 Service Network.</p>
+</footer>
+</body>
+</html>
+
+this made use of the js fuction new Date().get full year to display dinamicaly the year in the copy right it is used due the important of the updated data rendered in the page tha will continually change
+
+COACH: [Validated & Introduced Topic 3: EJS Partials and Pages] Could you share how you are organizing your EJS partials (like a header, footer, or navigation), and paste an EJS snippet showing how you include a partial inside one of your main pages?
+
+DREISER: 
+<body>
+    <%- include('partials/header') %>
+    <main>
+
+and this code is to display dinamically the navbar in neach page i have build using the <%- %> this sintaxis helps js to run the code without aoutputting anythig as i had installed tje ejs library in my project i'm able to by using the extention in my html files changed for ejs to ahndled modular components what haapened here is that inside the scope <%- %> i'm caliing include that received the relative path where the component i want to render is located and due the extentoon in the file ejs, and the middleware we are using in our server we can render this part of the htm dinamicaly
+
+COACH: [Validated & Introduced Topic 4: Frontend CSS] Could you share a snippet of the CSS you wrote to style these pages, and explain how you structured it to make your layout look organized and clean?
+
+DREISER: 
+i'm actualing using 3 breack points i my css 
+
+@media (min-width: 960px) {
+    main ul {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    nav ul {
+        padding: 1.5rem 2rem;
+        gap: 2.5rem;
+    }
+}
+this is the media query used to appy css style when the screen is larger than 960px 
+
+what it changes at this zise of screen the main url will be displayed in 3 colums isntead of flex like in the mobile screem 
+
+main {
+    flex: 1;
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 2rem 1.25rem;
+}
+
+and that will give it a profecional vew in any screen size mobile or desktop
+
+------------------------------------------------------------------------
+ROUND 2
+------------------------------------------------------------------------
+
+COACH: Welcome back! Just to be clear, this is still a coaching session, not a test. It is perfectly okay—and even encouraged—to say 'I don't know' or 'I made a mistake.' That's how we grow. For this round, could you show me how you handle errors or missing pages in your routing? For example, do you have a 404 catch-all route or error-handling middleware in your server.js file? Please paste the snippet and explain how it works!
+
+DREISER: i do not have at this moment a route that handled errors, but i could add it into a endpoint i have 2 options to add it due the headers given in the answer i could write an if statement like this if (!res.ok) { consol.log('error message) or throw a new error(message: 'error mesasge') } or using thy catch it would be try { const title = 'PROJECTS' res.render('projects', {title}) } catch (error) { throw a new error(message: 'error mesasge') }
+
+COACH: [Explained Express routing order and wildcard routes] Knowing that Express reads your routes sequentially from top to bottom, how do you think you could write a "catch-all" route at the very bottom of your server.js file to capture any URL that didn't match your homepage, categories, or projects?
+
+DREISER: i do not kkow hoet to handled taht here
+
+COACH: [Provided example of app.use() 404 handler. Introduced Topic 2 Context] What built-in JavaScript array method would you use if you wanted to loop through this list and only display the projects where active is true?
+
+DREISER: 
+<div>
+    <%= 
+        projects.forEach(project => {
+            if (project.active === true) {
+                <h2> `${project.name}` </h2>
+            }
+        })
+    %>
+</div>
+
+COACH: [Explained EJS scriptlet tags vs output tags, and template separation. Introduced Topic 3 context] Imagine you wanted to pass that filtered projects array from your server.js route file over into your projects.ejs view page so the code above could read it. How would you update your res.render('projects', { title }) line in your router to make sure the projects data gets sent along too?
+
+DREISER: 
+app.get('/projects', (req, res) => {
+    const filteredProjects = projects.filter(p => p.active)
+    // here i would have the array filtered but i do not know how to handled each just this way
+    const title = 'PROJECTS'
+    res.render('projects', {title,filteredProjects  })
+});
+
+COACH: [Validated backend data passing decision. Introduced Topic 4 context] Can you tell me how you styled that main ul or your navigation links for mobile screens before they hit that 960px breakpoint? For instance, did you stack them vertically using Flexbox or block display?
+
+DREISER: 
+i use display: flex and flex-wrap in that way they will fir in the screen automaticlaly witout over flow 
+
+nav ul {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.25rem;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.75rem;
+    align-items: center;
+}
+
+and will fix in 1 or 2 colunms depending on the screen vew
+
+========================================================================
+END OF TRANSCRIPT
+========================================================================
