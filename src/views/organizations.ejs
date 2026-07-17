@@ -20,7 +20,8 @@
                         src="/images/<%= org.logo_filename %>" 
                         alt="<%= org.name %>"
                     >
-                    <strong><%= org.name %></strong>: <%= org.contact_email %>
+                    <a href="/organization/<%= org.organization_id %>"><%= org.name %></a>
+                    <strong><%= org.contact_email %></strong>
                 </li>
             <% }) %>
         </ul>
