@@ -56,4 +56,52 @@ const getProjectsByOrganizationId = async (organizationId) => {
       return result.rows;
 };
 
-export {getAllServicProjects, getProjectsByOrganizationId}
+const getUpcomingProjects = async ( number_of_projects = 5) => {
+  const query = `
+    SELECT
+      sp.project_id,
+      sp.title,
+      sp.description,
+      sp.project_date,
+      sp.location,
+      sp.organization_id,
+      o.name as organization_name
+    FROM public.service_project sp
+    INNER JOIN public.organizations o
+      ON sp.organization_id = o.organization_id
+    LIMIT ${number_of_projects}
+  `;
+
+  const result = await db.query(query)
+
+  return result.rows
+}
+
+const getProjectDetails = async ( projectId ) => {
+  const query = `
+    SELECT
+      sp.project_id,
+      sp.title,
+      sp.description,
+      sp.project_date,
+      sp.location,
+      sp.organization_id,
+      o.name as organization_name
+    FROM public.service_project sp
+    INNER JOIN public.organizations o
+      ON sp.organization_id = o.organization_id
+    WHERE sp.project_id = $1
+  `;
+
+  const queryParams = [projectId]
+  const result = await db.query(query, queryParams)
+  
+  return result.rows[0]
+}
+
+export { 
+  getAllServicProjects, 
+  getProjectsByOrganizationId, 
+  getUpcomingProjects, 
+  getProjectDetails
+}

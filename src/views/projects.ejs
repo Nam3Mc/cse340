@@ -18,7 +18,9 @@
             <li>
                 <% let date = new Date(project.project_date); %>
                 <%= date.toLocaleDateString('es-ES') %>: 
-                <%= project.title %> 
+                <a href="/project/<%= project.project_id %>">
+                    <%= project.title %> 
+                </a>
                 (<%= project.organization_name %>)
             </li>
             <% }) %>
