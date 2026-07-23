@@ -28,6 +28,23 @@
                     <%= project.organization_name %>
                 </a>
             </li>
+            <!-- NUEVO BLOQUE PARA CATEGORÍAS -->
+            <li>
+                <strong>Categories:</strong>
+                <ul>
+                    <% if (project.categories && project.categories.length) { %>
+                        <% project.categories.forEach(category => { %>
+                            <li>
+                                <a href="/category/<%= category.category_id %>">
+                                    <%= category.category_name %>
+                                </a>
+                            </li>
+                        <% }); %>
+                    <% } else { %>
+                        <li>No categories assigned</li>
+                    <% } %>
+                </ul>
+            </li>
         </ul>
     
     </main>

@@ -77,6 +77,31 @@ const getUpcomingProjects = async ( number_of_projects = 5) => {
   return result.rows
 }
 
+// const getProjectDetails = async ( projectId ) => {
+  // const query = `
+    // SELECT
+      // sp.project_id,
+      // sp.title,
+      // sp.description,
+      // sp.project_date,
+      // sp.location,
+      // sp.organization_id,
+      // o.name as organization_name
+      // ARRAY_AGG(c.category_name) as categorie
+    // FROM public.service_project sp
+    // INNER JOIN public.organizations o ON sp.organization_id = o.organization_id
+    // LEFT JOIN public.serviceproject_categories spc ON sp.project_id = spc.project_id
+    // LEFT JOIN public.categories c ON spc.category_id = c.category_id
+    // WHERE sp.project_id = $1
+    // GROUP BY sp.project_id, o.name
+  // `;
+// 
+  // const queryParams = [projectId]
+  // const result = await db.query(query, queryParams)
+  // 
+  // return result.rows[0]
+// }
+
 const getProjectDetails = async ( projectId ) => {
   const query = `
     SELECT
@@ -86,17 +111,31 @@ const getProjectDetails = async ( projectId ) => {
       sp.project_date,
       sp.location,
       sp.organization_id,
-      o.name as organization_name
+      o.name as organization_name,
+      COALESCE(
+        json_agg(
+          json_build_object(
+            'category_id', c.category_id,
+            'category_name', c.category_name
+          )
+        ) FILTER (WHERE c.category_id IS NOT NULL),
+        '[]'::json
+      ) AS categories
     FROM public.service_project sp
     INNER JOIN public.organizations o
       ON sp.organization_id = o.organization_id
+    LEFT JOIN public.service_project_categories spc
+      ON sp.project_id = spc.project_id
+    LEFT JOIN public.categories c
+      ON spc.category_id = c.category_id
     WHERE sp.project_id = $1
+    GROUP BY sp.project_id, o.name
   `;
 
-  const queryParams = [projectId]
-  const result = await db.query(query, queryParams)
+  const queryParams = [projectId];
+  const result = await db.query(query, queryParams);
   
-  return result.rows[0]
+  return result.rows[0];
 }
 
 export { 
